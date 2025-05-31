@@ -1,0 +1,75 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            Int      @id @default(autoincrement())
+  googleId      String   @unique
+  name          String
+  email         String   @unique
+  coins         Int      @default(0)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  sessions      Session[]
+  payments      Payment[]
+  activityLogs  ActivityLog[]
+}
+
+model Session {
+  id        Int      @id @default(autoincrement())
+  user      User     @relation(fields: [userId], references: [id])
+  userId    Int
+  token     String   @unique
+  createdAt DateTime @default(now())
+  expiredAt DateTime
+}
+
+model Payment {
+  id            Int      @id @default(autoincrement())
+  user          User     @relation(fields: [userId], references: [id])
+  userId        Int
+  amount        Int
+  currency      String   @default("coins")
+  paymentMethod String
+  paymentId     String   @unique
+  status        String
+  createdAt     DateTime @default(now())
+}
+
+model Game {
+  id          Int       @id @default(autoincrement())
+  name        String
+  description String?
+  imageUrl    String?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
+
+model Match {
+  id          Int       @id @default(autoincrement())
+  game        Game      @relation(fields: [gameId], references: [id])
+  gameId      Int
+  player1     User      @relation("player1", fields: [player1Id], references: [id])
+  player1Id   Int
+  player2     User      @relation("player2", fields: [player2Id], references: [id])
+  player2Id   Int
+  winner      User?     @relation("winner", fields: [winnerId], references: [id])
+  winnerId    Int?
+  betAmount   Int
+  status      String
+  createdAt   DateTime  @default(now())
+  endedAt     DateTime?
+}
+
+model ActivityLog {
+  id        Int      @id @default(autoincrement())
+  user      User     @relation(fields: [userId], references: [id])
+  userId    Int
+  action    String
+  createdAt DateTime @default(now())
+}

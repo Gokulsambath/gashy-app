@@ -1,0 +1,46 @@
+version: '3.8'
+
+services:
+  backend:
+    build: ../backend
+    ports:
+      - "4000:4000"
+    env_file:
+      - ../backend/.env
+    depends_on:
+      - postgres
+      - redis
+
+  mobile:
+    build: ../mobile
+    ports:
+      - "19000:19000"
+    volumes:
+      - ../mobile:/app
+    command: npm start
+
+  admin-dashboard:
+    build: ../admin-dashboard
+    ports:
+      - "3000:3000"
+    env_file:
+      - ../admin-dashboard/.env
+
+  postgres:
+    image: postgres:14-alpine
+    restart: always
+    environment:
+      POSTGRES_USER: gashyuser
+      POSTGRES_PASSWORD: gashysecret
+      POSTGRES_DB: gashydb
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  redis:
+    image: redis:7-alpine
+    restart: always
+    ports:
+      - "6379:6379"
+
+volumes:
+  pgdata:

@@ -1,2 +1,21 @@
+# Use Node.js LTS official image
 FROM node:18-alpine
-WORKDIR /app
+
+# Create app directory
+WORKDIR /usr/src/app
+
+# Install dependencies
+COPY package.json package-lock.json* ./
+RUN npm install --production
+
+# Copy source files
+COPY . .
+
+# Build typescript
+RUN npm run build
+
+# Expose port
+EXPOSE 4000
+
+# Start the app
+CMD ["npm", "start"]

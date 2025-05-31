@@ -1,0 +1,12 @@
+[
+  {
+    "id": 1,
+    "userId": 1,
+    "gameId": 1,
+    "betCoins": 100,
+    "result": "win",
+    "coinsWon": 200,
+    "startedAt": "2025-05-01T10:00:00Z",
+    "endedAt": "2025-05-01T10:05:00Z"
+  }
+]

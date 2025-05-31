@@ -1,0 +1,11 @@
+[
+  {
+    "id": 1,
+    "name": "Carrom",
+    "description": "Classic 1v1 Carrom game",
+    "durationMinutes": 5,
+    "minBetCoins": 10,
+    "maxBetCoins": 1000,
+    "createdAt": "2025-01-01T00:00:00Z"
+  }
+]

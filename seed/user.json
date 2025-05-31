@@ -1,0 +1,18 @@
+[
+  {
+    "id": 1,
+    "email": "testuser1@example.com",
+    "name": "Test User One",
+    "googleId": "google-uid-1",
+    "coins": 1000,
+    "createdAt": "2025-01-01T00:00:00Z"
+  },
+  {
+    "id": 2,
+    "email": "testuser2@example.com",
+    "name": "Test User Two",
+    "googleId": "google-uid-2",
+    "coins": 500,
+    "createdAt": "2025-01-02T00:00:00Z"
+  }
+]
